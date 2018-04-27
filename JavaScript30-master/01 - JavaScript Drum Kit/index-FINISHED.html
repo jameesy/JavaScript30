@@ -59,24 +59,41 @@
 
 <script>
 
-function removeTransition(e) {
-    if (e.propertyName !== 'transform') return;
-    e.target.classList.remove('playing');
-  }
+// Create keys variable, query select all items the .key class and then store in an Array.
+const keys = Array.from(document.querySelectorAll('.key'));
+
+// Listen for the keys being pressed, and run the playSound function.
+window.addEventListener('keydown', playSound);
+
+// For each item in the key array, listen for transition end and then remove the playing class, ending the animation.
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
 
 function playSound(e) {
+    // Select the audios with the relevant keycodes
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+
+    // If the keycodes arent recognised (the key is not a key on the drumkit) then return and end the function.
     if (!audio) return;
 
+    // Add the class .playing to the key to start the animation
     key.classList.add('playing');
+
+    // Allow numerous audios to run at the same time.
     audio.currentTime = 0;
+
+    // Play those drums!
     audio.play();
   }
-  
-  const keys = Array.from(document.querySelectorAll('.key'));
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-  window.addEventListener('keydown', playSound);
+
+function removeTransition(e) {
+    // If the property name isn't transform, we dont need to go any further because it doesnt have the class playing anyways.
+    if (e.propertyName !== 'transform') return;
+
+    // Remove the playing class.
+    e.target.classList.remove('playing');
+  }
 
 </script>
 
