@@ -79,30 +79,43 @@
 
 
     // Define the variables, and retrieve the hands using query selectors.
-    const secondHand = document.querySelector('')
-    const minutehand = 
-    const hourHand = 
-
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
     // Set date function
+    function setDate(){
 
-    // Define the time variable using const date = new date();
+      // Define the time variable using const date = new date();
+      const now = new Date();
 
-    // Define the seconds variable. 
-    // Define seconds rotation variable. 
-    // Rotate the seconds hand accordingly.
+      // Define the seconds variable. 
+      const seconds= now.getSeconds();
+      // Define seconds rotation variable.
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      // Rotate the seconds hand accordingly.
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
-    // Define the minutes variable.
-    // Define the minutes rotation variable.
-    // Rotate the minutes hand accordingly.
+      // Define the minutes variable.
+      const mins = now.getMinutes();
+      // Define the minutes rotation variable.
+      const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
+      // Rotate the minutes hand accordingly.
+      minuteHand.style.transform = `rotate(${minsDegrees}deg)`;
 
-    // Define the hours variable.
-    // Define the hours rotation variable.
-    // Rotate the hour hand accordingly.
+      // Define the hours variable.
+      const hour = now.getHours();
+      // Define the hours rotation variable.
+      const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+      // Rotate the hour hand accordingly.
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
 
     // Set interval (set date function, 1000)
+    setInterval(setDate, 1000);
     
     // Run set date function
+    setDate();
 
 
   </script>
